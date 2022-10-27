@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link as RouterLink } from 'react-router-dom'
-
 import { Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { Google } from '@mui/icons-material'
 import { AuthLayout } from '../layout/AuthLayout'
-
 import { useForm } from '../../hooks/useForm'
 import { startCreatingAccount } from '../../store/auth/thunks'
 import { logout } from '../../store'
-
 
 const initialForm = {
   displayName: '',
@@ -26,6 +23,7 @@ const formValidations = {
   confirmedPassword: [(value, value2) => value === value2, 'Passwords does not match'],
 }
 
+
 export const RegisterPage = () => {
 
   const dispatch = useDispatch();
@@ -33,6 +31,7 @@ export const RegisterPage = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
+
     dispatch(logout());
   }, [])
 
@@ -42,12 +41,9 @@ export const RegisterPage = () => {
 
     e.preventDefault();
     setIsFormValid(true);
-
     // If all form properties are validated, dispatch te creating account function
     if (!allFormsValidated) return;
-
     dispatch(startCreatingAccount(formState))
-
   };
 
   return (

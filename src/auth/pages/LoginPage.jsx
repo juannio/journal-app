@@ -1,17 +1,12 @@
 import {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-
 import { Link as RouterLink } from 'react-router-dom';
-
 import { startEmailAndPasswordSignIn, startGoogleSingIn } from '../../store/auth/thunks';
-
 import { Button, Grid, Link, TextField, Typography, Box } from "@mui/material";
 import { Google } from '@mui/icons-material';
-
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks/useForm';
 import { logout } from '../../store';
-
 
 
 export const LoginPage = () => {
@@ -25,17 +20,20 @@ export const LoginPage = () => {
   });
 
   useEffect(() => {
+
     dispatch(logout());
   }, []);
 
   //User and Password authentication
   const onSubmit = e => {
+
     e.preventDefault();
     dispatch(startEmailAndPasswordSignIn({ email, password }));
   }
 
   //Google authentication
   const onGoogleSignIn = e => {
+
     dispatch(startGoogleSingIn());
   }
 
