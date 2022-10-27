@@ -3,6 +3,8 @@ import { AuthRoute } from "../auth/routes/AuthRoute"
 import { JournalRoutes } from "../journal/routes/JournalRoutes"
 
 export const AppRouter = () => {
+
+
     return (
         <Routes>
 

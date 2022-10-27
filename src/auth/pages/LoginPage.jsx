@@ -1,26 +1,32 @@
+import {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link as RouterLink } from 'react-router-dom';
 
 import { startEmailAndPasswordSignIn, startGoogleSingIn } from '../../store/auth/thunks';
 
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { Button, Grid, Link, TextField, Typography, Box } from "@mui/material";
 import { Google } from '@mui/icons-material';
 
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks/useForm';
+import { logout } from '../../store';
+
+
 
 export const LoginPage = () => {
 
   const dispatch = useDispatch();
-
   //Verify the authentication status
-  const { status } = useSelector(state => state.authentication);
-
+  const { status, errorMessage } = useSelector(state => state.authentication);
   const { onInputChange, email, password, formState } = useForm({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    dispatch(logout());
+  }, []);
 
   //User and Password authentication
   const onSubmit = e => {
@@ -61,12 +67,12 @@ export const LoginPage = () => {
           </Grid>
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
             <Grid item xs={12} sm={6}>
-              <Button type='submit' variant='contained' fullWidth disabled={status == 'checking' && true}>
+              <Button type='submit' variant='contained' fullWidth disabled={status == 'checking'}>
                 Login
               </Button>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Button onClick={onGoogleSignIn} variant='container' fullWidth disabled={status == 'checking' && true}>
+              <Button onClick={onGoogleSignIn} variant='container' fullWidth disabled={status == 'checking'}>
                 <Google />
                 <Typography sx={{ ml: 1 }}>
                   Sign in with Google
@@ -74,10 +80,15 @@ export const LoginPage = () => {
               </Button>
             </Grid>
           </Grid>
-          <Grid container direction="row" justifyContent="end">
-            <Link component={RouterLink} color="inherit" to={status != 'checking' && "/auth/register"}>
+          <Grid container display='flex' flexDirection='row-reverse' justifyContent='space-between' >
+            <Link component={RouterLink} color="inherit" to={status != 'checking' && "/auth/register"} >
               Create an account
             </Link>
+            <Typography sx={{ color: "red" }}>
+              {
+                errorMessage
+              }
+            </Typography>
           </Grid>
         </Grid>
       </form>
