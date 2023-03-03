@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const AUTH_STATUS = ['checking', 'authenticated', 'not-authenticated']
 
 const defaultState = {
-    status: AUTH_STATUS[0], // 'checking', 'authenticated'
+    status: AUTH_STATUS[2], // 'checking', 'authenticated'
     uid: null,
     email: null,
     displayName: null,
